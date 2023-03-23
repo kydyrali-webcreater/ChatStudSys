@@ -60,7 +60,7 @@ public class JwtAuthenticationController {
         );
 
         SecurityContextHolder.getContext().setAuthentication(authentication);
-        String jwt = jwtUtils.generateToken(authentication.getName());
+        String jwt = jwtUtils.generateToken(loginRequest.getUserId());
         CustomUserDetails userDetails = (CustomUserDetails) authentication.getPrincipal();
         List<String> roles = userDetails.getAuthorities().stream()
                 .map(GrantedAuthority::getAuthority)

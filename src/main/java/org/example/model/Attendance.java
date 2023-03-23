@@ -8,27 +8,40 @@ import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "attendance")
-@Getter
-@Setter
+@Getter @Setter
 public class Attendance {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "subject_id", nullable = false)
-    private Subject subject;
+    private LocalDateTime time;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "student_id", nullable = false)
-    private User student;
+    private boolean isAttendance;
 
-    @Column(nullable = false)
-    private boolean attended;
+    private Long studentId;
 
-    @Column(nullable = false)
-    private LocalDateTime date;
+    private Long subjectId;
+
+    @Column(name = "puted_by_id")
+    private String putedById;
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "puted_by_role")
+    private PutedByRole putedByRole;
+
+    @Enumerated(EnumType.STRING)
+    private AttendanceType attendanceType;
 
 
+    private enum PutedByRole{
+        STUDENT,
+        TEACHER,
+        ADMIN;
+    }
+
+    public enum AttendanceType{
+        CARD,
+        PORTAL;
+    }
 }

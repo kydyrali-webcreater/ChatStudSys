@@ -24,8 +24,6 @@ public class User {
     @Column(nullable = false)
     private String password;
 
-    @ManyToMany(mappedBy = "students")
-    private Set<Subject> subjects;
 
     public User(RegistrationRequest registrationRequest) {
         this.id = registrationRequest.getUserId();

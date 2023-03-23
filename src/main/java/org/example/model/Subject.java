@@ -2,34 +2,55 @@ package org.example.model;
 
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
+import org.springframework.util.StringUtils;
 
 import javax.persistence.*;
-import java.util.HashSet;
-import java.util.Set;
+import java.time.LocalDate;
+import java.util.*;
+import java.util.stream.Collectors;
 
 @Entity
 @Table(name = "subjects")
-@Getter @Setter
+@Getter @Setter @ToString
 public class Subject {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false)
     private String name;
 
-    @ManyToMany(fetch = FetchType.LAZY)
-    @JoinTable(name = "subject_teachers",
-            joinColumns = @JoinColumn(name = "subject_id"),
-            inverseJoinColumns = @JoinColumn(name = "teacher_id"))
-    private Set<User> teachers = new HashSet<>();
+    private String courseCode;
 
-    @ManyToMany
-    @JoinTable(
-            name = "user_subjects",
-            joinColumns = @JoinColumn(name = "subject_id"),
-            inverseJoinColumns = @JoinColumn(name = "user_id")
-    )
-    private Set<User> students;
+    private String studentIds;
+
+    private String teacherId;
+    private LocalDate time;
+
+    @Enumerated(EnumType.STRING)
+    private WeekDay weekDay;
+
+    public enum WeekDay{
+        MONDAY,
+        TUESDAY,
+        WEDNESDAY,
+        THURSDAY,
+        FRIDAY,
+        SATURDAY,
+        SUNDAY;
+    }
+
+    public List<String> getStudentIds() {
+        if (!StringUtils.isEmpty(studentIds)) {
+            return Arrays.stream(studentIds.split(",")).collect(Collectors.toList());
+        }
+        return Collections.emptyList();
+    }
+
+    public void setStudentIds(List<String> mediumBankCurrenciesStr) {
+        if (mediumBankCurrenciesStr != null) {
+            studentIds = String.join("," , mediumBankCurrenciesStr);
+        }
+    }
 }

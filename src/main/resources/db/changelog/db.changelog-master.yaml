@@ -2,3 +2,9 @@ databaseChangeLog:
   - include:
       file: create_user.sql
       relativeToChangelogFile: true
+  - include:
+      file: create_subject.sql
+      relativeToChangelogFile: true
+  - include:
+      file: create_attendance.sql
+      relativeToChangelogFile: true
