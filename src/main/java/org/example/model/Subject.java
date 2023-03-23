@@ -6,7 +6,7 @@ import lombok.ToString;
 import org.springframework.util.StringUtils;
 
 import javax.persistence.*;
-import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -26,7 +26,7 @@ public class Subject {
     private String studentIds;
 
     private String teacherId;
-    private LocalDate time;
+    private LocalTime time;
 
     @Enumerated(EnumType.STRING)
     private WeekDay weekDay;

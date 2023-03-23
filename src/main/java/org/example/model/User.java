@@ -2,10 +2,9 @@ package org.example.model;
 
 import lombok.Getter;
 import lombok.Setter;
+import org.example.model.Dto.RegistrationRequest;
 
 import javax.persistence.*;
-import java.util.HashSet;
-import java.util.Set;
 
 @Entity
 @Table(name = "users")

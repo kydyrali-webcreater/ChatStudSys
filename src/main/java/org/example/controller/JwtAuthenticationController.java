@@ -1,8 +1,8 @@
 package org.example.controller;
 
 import org.example.model.JwtResponse;
-import org.example.model.LoginRequest;
-import org.example.model.RegistrationRequest;
+import org.example.model.Dto.LoginRequest;
+import org.example.model.Dto.RegistrationRequest;
 import org.example.model.User;
 import org.example.security.CustomUserDetails;
 import org.example.security.CustomUserDetailsService;
@@ -16,7 +16,6 @@ import org.springframework.security.authentication.DisabledException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;

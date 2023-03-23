@@ -19,9 +19,9 @@ public class Attendance {
 
     private boolean isAttendance;
 
-    private Long studentId;
+    private String studentId;
 
-    private Long subjectId;
+    private String courseCode;
 
     @Column(name = "puted_by_id")
     private String putedById;

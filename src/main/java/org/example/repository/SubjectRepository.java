@@ -2,9 +2,18 @@ package org.example.repository;
 
 import org.example.model.Subject;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
+
+import java.util.List;
 
 @Repository
 public interface SubjectRepository extends JpaRepository<Subject, Long> {
 
+    @Query("SELECT s FROM Subject s WHERE s.studentIds LIKE CONCAT('%', TRIM(:studentId), '%')")
+    List<Subject> getListByStudentId(@Param("studentId") String studentId);
+
+    @Query("SELECT s.studentIds FROM Subject s WHERE s.courseCode = :courseCode")
+    String getListByCourseCode(@Param("courseCode") String studentId);
 }

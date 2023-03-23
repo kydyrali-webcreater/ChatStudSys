@@ -1,6 +1,6 @@
 package org.example.service;
 
-import org.example.model.RegistrationRequest;
+import org.example.model.Dto.RegistrationRequest;
 import org.example.model.User;
 import org.example.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
