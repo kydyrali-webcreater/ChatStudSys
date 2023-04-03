@@ -11,11 +11,9 @@ import javax.servlet.http.*;
 @Component
 public class CustomCorsFilter extends OncePerRequestFilter {
 
-    @Value(value = "${cors.allowedOrigin}")
-    private String allowedOrigin;
+    private String allowedOrigin="http://localhost:8080";
 
-    @Value(value = "${cors.enabled}")
-    private Boolean corsEnabled;
+    private Boolean corsEnabled=true;
 
     @Override
     protected void doFilterInternal(final HttpServletRequest request, final HttpServletResponse response,
