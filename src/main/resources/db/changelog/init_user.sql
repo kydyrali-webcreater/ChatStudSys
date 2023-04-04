@@ -1,1 +1,1 @@
--- INSERT INTO  users(id , firstname , lastname , password , userrole)
+INSERT INTO  users(id , firstname , lastname , password , userrole)
