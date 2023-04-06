@@ -30,11 +30,14 @@ public class Attendance {
     @Column(name = "puted_by_role")
     private PutedByRole putedByRole;
 
+    @Transient
+    private String putedByInfo;
+
     @Enumerated(EnumType.STRING)
     private AttendanceType attendanceType;
 
 
-    private enum PutedByRole{
+    public enum PutedByRole{
         STUDENT,
         TEACHER,
         ADMIN;

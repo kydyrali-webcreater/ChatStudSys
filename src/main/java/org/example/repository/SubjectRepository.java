@@ -22,4 +22,7 @@ public interface SubjectRepository extends JpaRepository<Subject, Long> {
 
     @Query("SELECT s.studentIds FROM Subject s WHERE s.teacherId = :teacherId")
     String getListStudentsByTeacherId(@Param("teacherId") String teacherId);
+
+    @Query("SELECT s.courseCode FROM Subject s WHERE s.teacherId= :teacherId")
+    String getCourseCodeByTeacherId(@Param("teacherId") String teacherId);
 }

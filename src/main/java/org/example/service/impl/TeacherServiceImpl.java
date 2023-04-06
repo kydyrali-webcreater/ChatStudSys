@@ -1,7 +1,9 @@
 package org.example.service.impl;
 
+import org.example.Exceptions.models.BasicException;
 import org.example.model.Attendance;
 import org.example.model.Dto.Student;
+import org.example.model.Dto.StudentAttendance;
 import org.example.model.User;
 import org.example.repository.AttendanceRepository;
 import org.example.repository.SubjectRepository;
@@ -10,11 +12,10 @@ import org.example.service.TeacherService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.InputMismatchException;
-import java.util.List;
+import java.time.LocalDateTime;
+import java.util.*;
 
 @Service
 public class TeacherServiceImpl implements TeacherService {
@@ -33,12 +34,12 @@ public class TeacherServiceImpl implements TeacherService {
         List<String> studentIds = Arrays.stream(subjectRepository.getListStudentsByTeacherId(teacherId).split(","))
         .filter(s -> s.startsWith(studentId)).toList();
         if(studentIds.isEmpty()){
-            throw new InputMismatchException("TEACHER DOESN'T HAVE STUDENTS");
+            throw new BasicException("TEACHER DOESN'T HAVE STUDENTS");
         }
         List<Student> studentList = new ArrayList<>();
         for(String ids: studentIds){
             User student = userRepository.findByUserId(ids)
-                    .orElseThrow(() -> new UsernameNotFoundException("STUDENT NOT FOUND"));
+                    .orElseThrow(() -> new BasicException("STUDENT NOT FOUND"));
             studentList.add(new Student(student));
         }
 
@@ -46,14 +47,26 @@ public class TeacherServiceImpl implements TeacherService {
     }
 
     @Override
-    public Attendance setAttendance(String studentId, String teacherId, boolean attendance){
-        User student = userRepository.findByUserId(studentId)
-                .orElseThrow(() -> new UsernameNotFoundException("STUDENT NOT FOUND"));
+    @Transactional
+    public List<Attendance> setAttendance(User teacher, Set<StudentAttendance> studentAttendances){
+        List<Attendance> attendanceList = new ArrayList<>();
+        for(StudentAttendance studentAttendance: studentAttendances) {
+            if (!Arrays.stream(subjectRepository.getListStudentsByTeacherId(teacher.getId()).split(",")).toList().contains(studentAttendance.getStudentId())) {
+                throw new BasicException("USER IS NOT TEACHER FOR THE STUDENT " + studentAttendance.getStudentId());
+            }
 
-        if(!Arrays.stream(subjectRepository.getListStudentsByTeacherId(teacherId).split(",")).toList().contains(studentId)){
-            throw new InputMismatchException("USER IS NOT TEACHER FOR THE STUDENT");
+            Attendance studentAtt = new Attendance();
+            studentAtt.setAttendance(studentAttendance.isAttendance());
+            studentAtt.setStudentId(studentAttendance.getStudentId());
+            studentAtt.setAttendanceType(Attendance.AttendanceType.PORTAL);
+            studentAtt.setTime(LocalDateTime.now());
+            studentAtt.setCourseCode(subjectRepository.getCourseCodeByTeacherId(teacher.getId()));
+            studentAtt.setPutedById(teacher.getId());
+            studentAtt.setPutedByInfo(teacher.getLastname() + " " + teacher.getFirstname());
+            studentAtt.setPutedByRole(Attendance.PutedByRole.TEACHER);
+            attendanceRepository.save(studentAtt);
+            attendanceList.add(studentAtt);
         }
-
-        return null;
+        return attendanceList;
     }
 }
