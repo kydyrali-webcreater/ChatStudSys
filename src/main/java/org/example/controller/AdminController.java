@@ -26,7 +26,6 @@ public class AdminController {
 
     @PostMapping("/subject/create")
     public void create(@RequestBody Subject subject){
-        System.out.println(subject.toString());
         subjectsRepository.save(subject);
     }
 

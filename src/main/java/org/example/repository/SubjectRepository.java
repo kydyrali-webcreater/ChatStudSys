@@ -7,6 +7,7 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public interface SubjectRepository extends JpaRepository<Subject, Long> {
@@ -25,4 +26,7 @@ public interface SubjectRepository extends JpaRepository<Subject, Long> {
 
     @Query("SELECT s.courseCode FROM Subject s WHERE s.teacherId= :teacherId")
     String getCourseCodeByTeacherId(@Param("teacherId") String teacherId);
+
+    @Query("SELECT s FROM Subject  s WHERE s.courseCode = :courseCode")
+    Optional<Subject> getByCourseCode(@Param("courseCode") String courseCode);
 }
