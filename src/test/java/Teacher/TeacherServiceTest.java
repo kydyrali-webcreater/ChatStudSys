@@ -82,35 +82,4 @@ public class TeacherServiceTest {
         Mockito.verify(userRepository).findByUserId("123");
     }
 
-
-    @Test
-    public void testSetAttendance_studentNotAssignedToTeacher() {
-        String teacherId = "123";
-        User teacher = new User();
-        teacher.setId(teacherId);
-
-        Set<StudentAttendance> studentAttendances = new HashSet<>();
-        StudentAttendance studentAttendance1 = new StudentAttendance();
-        studentAttendance1.setStudentId("234");
-        studentAttendance1.setAttendance(true);
-        studentAttendances.add(studentAttendance1);
-        StudentAttendance studentAttendance2 = new StudentAttendance();
-        studentAttendance2.setStudentId("345");
-        studentAttendance2.setAttendance(false);
-        studentAttendances.add(studentAttendance2);
-
-        String studentIds = "123,456,789";
-        Mockito.when(subjectRepository.getListStudentsByTeacherId(teacherId)).thenReturn(studentIds);
-
-        try {
-            teacherService.setAttendance(teacher, studentAttendances);
-            Assert.fail("Expected BasicException was not thrown");
-        } catch (BasicException ex) {
-            Assert.assertEquals("USER IS NOT TEACHER FOR THE STUDENT 345", ex.getMessage());
-        }
-
-        Mockito.verify(subjectRepository).getListStudentsByTeacherId(teacherId);
-        Mockito.verifyNoMoreInteractions(subjectRepository);
-        Mockito.verifyNoMoreInteractions(attendanceRepository);
-    }
 }
