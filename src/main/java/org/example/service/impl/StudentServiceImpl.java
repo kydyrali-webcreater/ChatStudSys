@@ -44,9 +44,9 @@ public class StudentServiceImpl implements StudentService {
             throw new BasicException("STUNDENT DOESN'T HAVE THE COURSE");
         }
 
-        if(subject.getTime().getHour()==attendance.getTime().getHour() &&
+        if(!(subject.getTime().getHour()==attendance.getTime().getHour() &&
            subject.getTime().getMinute()<=attendance.getTime().getMinute() &&
-                (subject.getTime().getMinute()+50)>=attendance.getTime().getMinute()){
+                (subject.getTime().getMinute()+50)>=attendance.getTime().getMinute())){
             throw new BasicException("ATTENDANCE TIME NOT VALID");
         }
 

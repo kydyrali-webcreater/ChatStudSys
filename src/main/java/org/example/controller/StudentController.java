@@ -41,7 +41,7 @@ public class StudentController {
 
 
     @PostMapping("/{studentId}/attendance/take")
-    public Attendance takeAttendance(@Param("studentId") String studentId ,
+    public Attendance takeAttendance(@PathVariable("studentId") String studentId ,
                                      @RequestBody Attendance attendance){
         return studentService.takeAttendance(studentId , attendance);
     }
