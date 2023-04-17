@@ -4,14 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="b591dc87-2af1-485d-8995-421156d4dc03" name="Changes" comment="adding docker">
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/controller/TeacherController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/db/changelog/init_user.sql" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.xml" afterDir="false" />
+    <list default="true" id="b591dc87-2af1-485d-8995-421156d4dc03" name="Changes" comment="init users for testing">
+      <change afterPath="$PROJECT_DIR$/src/test/java/Auth/JwtAuthenticationControllerTest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docker-compose.yml" beforeDir="false" afterPath="$PROJECT_DIR$/docker-compose.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/mapper/SubjectMapper.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/application.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/security/CustomUserDetails.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/security/CustomUserDetails.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/service/impl/SubjectServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/service/impl/AdminServiceImpl.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -28,8 +25,18 @@
   </component>
   <component name="Git.Rebase.Settings">
     <option name="NEW_BASE" value="origin/master" />
+    <option name="OPTIONS">
+      <set>
+        <option value="INTERACTIVE" />
+      </set>
+    </option>
   </component>
   <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="cors" />
+      </map>
+    </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="MarkdownSettingsMigration">
@@ -81,7 +88,68 @@
       <recent name="org.example.mapper" />
     </key>
   </component>
-  <component name="RunManager" selected="Spring Boot.AttendanceSystemApplication">
+  <component name="RunManager" selected="JUnit.JwtAuthenticationControllerTest">
+    <configuration name="JwtAuthenticationControllerTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="ChatStudSys" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="Auth.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="Auth" />
+      <option name="MAIN_CLASS_NAME" value="Auth.JwtAuthenticationControllerTest" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="JwtAuthenticationControllerTest.testRegisterUser" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="ChatStudSys" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="Auth.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="Auth" />
+      <option name="MAIN_CLASS_NAME" value="Auth.JwtAuthenticationControllerTest" />
+      <option name="METHOD_NAME" value="testRegisterUser" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="TeacherControllerTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="ChatStudSys" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="Teacher.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="Teacher" />
+      <option name="MAIN_CLASS_NAME" value="Teacher.TeacherControllerTest" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="TeacherServiceTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="ChatStudSys" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="Teacher.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="Teacher" />
+      <option name="MAIN_CLASS_NAME" value="Teacher.TeacherServiceTest" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="AttendanceSystemApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" temporary="true" nameIsGenerated="true">
       <module name="ChatStudSys" />
       <option name="SPRING_BOOT_MAIN_CLASS" value="org.example.AttendanceSystemApplication" />
@@ -101,32 +169,13 @@
       </deployment>
       <method v="2" />
     </configuration>
-    <configuration name="docker-compose.yml: Compose Deployment" type="docker-deploy" factoryName="docker-compose.yml" temporary="true" server-name="Docker">
-      <deployment type="docker-compose.yml">
-        <settings>
-          <option name="sourceFilePath" value="docker-compose.yml" />
-        </settings>
-      </deployment>
-      <method v="2" />
-    </configuration>
-    <configuration name="docker-compose.yml.db: Compose Deployment" type="docker-deploy" factoryName="docker-compose.yml" temporary="true" server-name="Docker">
-      <deployment type="docker-compose.yml">
-        <settings>
-          <option name="services">
-            <list>
-              <option value="db" />
-            </list>
-          </option>
-          <option name="sourceFilePath" value="docker-compose.yml" />
-        </settings>
-      </deployment>
-      <method v="2" />
-    </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="JUnit.JwtAuthenticationControllerTest" />
+        <item itemvalue="JUnit.JwtAuthenticationControllerTest.testRegisterUser" />
+        <item itemvalue="JUnit.TeacherControllerTest" />
+        <item itemvalue="JUnit.TeacherServiceTest" />
         <item itemvalue="Spring Boot.AttendanceSystemApplication" />
-        <item itemvalue="Docker.docker-compose.yml.db: Compose Deployment" />
-        <item itemvalue="Docker.docker-compose.yml: Compose Deployment" />
       </list>
     </recent_temporary>
   </component>
@@ -144,6 +193,14 @@
       <workItem from="1680286841398" duration="4009000" />
       <workItem from="1680339723087" duration="3282000" />
       <workItem from="1680425655762" duration="3024000" />
+      <workItem from="1680673050685" duration="15000" />
+      <workItem from="1680792023849" duration="9402000" />
+      <workItem from="1680841022808" duration="132000" />
+      <workItem from="1680954835701" duration="5233000" />
+      <workItem from="1681099653562" duration="11000" />
+      <workItem from="1681456058873" duration="5553000" />
+      <workItem from="1681705042449" duration="150000" />
+      <workItem from="1681712185119" duration="4583000" />
     </task>
     <task id="LOCAL-00001" summary="working Auth">
       <created>1679576229374</created>
@@ -166,7 +223,49 @@
       <option name="project" value="LOCAL" />
       <updated>1680257709317</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="init else cors test">
+      <created>1680627894804</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1680627894804</updated>
+    </task>
+    <task id="LOCAL-00005" summary="teacher part 50/50">
+      <created>1680635736881</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1680635736881</updated>
+    </task>
+    <task id="LOCAL-00006" summary="add Exception and ErrorResponse">
+      <created>1680800586774</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1680800586775</updated>
+    </task>
+    <task id="LOCAL-00007" summary="add Teacher features |check att + tests">
+      <created>1680800635447</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1680800635447</updated>
+    </task>
+    <task id="LOCAL-00008" summary="add  Student features">
+      <created>1680959235420</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1680959235420</updated>
+    </task>
+    <task id="LOCAL-00009" summary="init users for testing">
+      <created>1680959706064</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1680959706064</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -199,17 +298,12 @@
     <MESSAGE value="working Auth" />
     <MESSAGE value="working Auth fix by Id" />
     <MESSAGE value="adding docker" />
-    <option name="LAST_COMMIT_MESSAGE" value="adding docker" />
-  </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/org/example/service/impl/SubjectServiceImpl.java</url>
-          <line>36</line>
-          <option name="timeStamp" value="32" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
+    <MESSAGE value="init else cors test" />
+    <MESSAGE value="teacher part 50/50" />
+    <MESSAGE value="add Exception and ErrorResponse" />
+    <MESSAGE value="add Teacher features |check att + tests" />
+    <MESSAGE value="add  Student features" />
+    <MESSAGE value="init users for testing" />
+    <option name="LAST_COMMIT_MESSAGE" value="init users for testing" />
   </component>
 </project>
