@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.DayOfWeek;
 import java.time.LocalDateTime;
 import java.util.Arrays;
 
@@ -44,6 +45,12 @@ public class StudentServiceImpl implements StudentService {
             throw new BasicException("STUNDENT DOESN'T HAVE THE COURSE");
         }
 
+        Subject.WeekDay expectedDayOfWeek = subject.getWeekDay();
+        DayOfWeek actualDayOfWeek = attendance.getTime().getDayOfWeek();
+        if (checkWeekDay(expectedDayOfWeek , actualDayOfWeek)) {
+            throw new BasicException("ATTENDANCE DAY OF WEEK NOT VALID");
+        }
+
         if(!(subject.getTime().getHour()==attendance.getTime().getHour() &&
            subject.getTime().getMinute()<=attendance.getTime().getMinute() &&
                 (subject.getTime().getMinute()+50)>=attendance.getTime().getMinute())){
@@ -51,5 +58,22 @@ public class StudentServiceImpl implements StudentService {
         }
 
         return attendanceRepository.save(attendance);
+    }
+
+    private boolean checkWeekDay(Subject.WeekDay subjectDay , DayOfWeek attDay){
+        int i = 0;
+        switch (subjectDay){
+            case MONDAY -> i=1;
+            case TUESDAY -> i=2;
+            case WEDNESDAY -> i=3;
+            case THURSDAY -> i=4;
+            case FRIDAY -> i=5;
+            case SATURDAY -> i=6;
+            case SUNDAY -> i=7;
+        }
+        if(attDay.getValue()!=i){
+            return true;
+        }
+        return false;
     }
 }

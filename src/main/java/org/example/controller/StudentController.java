@@ -53,6 +53,13 @@ public class StudentController {
                 .orElseThrow(() -> new BasicException("STUDENT NOT FOUND"));
 
         List<Attendance> attendanceList = attendanceRepository.getAttendanceByCourseCode(studentId , courseCode);
+
+        for(Attendance attendance : attendanceList){
+            User user = userRepository.findByUserId(studentId)
+                    .orElseThrow(() -> new BasicException("NOT FOUND USER WHO TAKE ATTENDANCE"));
+            attendance.setPutedByInfo(user.getLastname() + " " + user.getFirstname());
+        }
+
         return attendanceList;
     }
 
@@ -61,6 +68,14 @@ public class StudentController {
         User student = userRepository.findByUserId(studentId)
                 .orElseThrow(() -> new BasicException("STUDENT NOT FOUND"));
 
-        return attendanceRepository.getAttendanceByStudentId(studentId);
+        List<Attendance> attendanceList = attendanceRepository.getAttendanceByStudentId(studentId);
+
+        for(Attendance attendance : attendanceList){
+            User user = userRepository.findByUserId(studentId)
+                    .orElseThrow(() -> new BasicException("NOT FOUND USER WHO TAKE ATTENDANCE"));
+            attendance.setPutedByInfo(user.getLastname() + " " + user.getFirstname());
+        }
+
+        return attendanceList;
     }
 }
