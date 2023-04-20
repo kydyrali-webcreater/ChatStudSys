@@ -1,5 +1,6 @@
 package org.example.service.impl;
 
+import org.example.Exceptions.models.BasicException;
 import org.example.model.Attendance;
 import org.example.model.Dto.Student;
 import org.example.model.Subject;
@@ -29,7 +30,16 @@ public class SubjectServiceImpl implements SubjectService{
 
     @Override
     public List<Subject> getList(String studentId) {
-        return subjectRepository.getListByStudentId(studentId);
+        List<Subject> subjects = subjectRepository.getListByStudentId(studentId);
+
+        for(Subject subject : subjects){
+            User user = userRepository.findByUserId(studentId)
+                    .orElseThrow(() -> new BasicException("NOT FOUND TEACHER BY ID:" + studentId));
+            subject.setTeacherName(user.getLastname() + " " + user.getFirstname());
+        }
+
+        return subjects;
+
     }
 
     @Override

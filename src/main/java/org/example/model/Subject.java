@@ -26,6 +26,9 @@ public class Subject {
     private String studentIds;
 
     private String teacherId;
+
+    @Transient
+    private String teacherName;
     private LocalTime time;
 
     @Enumerated(EnumType.STRING)
