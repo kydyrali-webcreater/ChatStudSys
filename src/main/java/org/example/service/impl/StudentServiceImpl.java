@@ -2,6 +2,7 @@ package org.example.service.impl;
 
 import org.example.Exceptions.models.BasicException;
 import org.example.model.Attendance;
+import org.example.model.Dto.AttendanceListByCourseDto;
 import org.example.model.Dto.Student;
 import org.example.model.Subject;
 import org.example.model.User;
@@ -15,7 +16,9 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.time.DayOfWeek;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 @Service
 public class StudentServiceImpl implements StudentService {
@@ -58,6 +61,41 @@ public class StudentServiceImpl implements StudentService {
         }
 
         return attendanceRepository.save(attendance);
+    }
+
+    @Override
+    public List<AttendanceListByCourseDto> getAllAttendance(String studentId) {
+        List<Subject> subjects = subjectRepository.getListByStudentId(studentId);
+        List<AttendanceListByCourseDto> list = new ArrayList<>();
+        for(Subject subject : subjects){
+            AttendanceListByCourseDto attendanceListByCourseDto = new AttendanceListByCourseDto();
+            List<Attendance> attendanceList = attendanceRepository.getAttendanceByCourseCode(studentId , subject.getCourseCode());
+
+            for(Attendance attendance : attendanceList){
+                User user = userRepository.findByUserId(studentId)
+                        .orElseThrow(() -> new BasicException("NOT FOUND USER WHO TAKE ATTENDANCE"));
+                attendance.setPutedByInfo(user.getLastname() + " " + user.getFirstname());
+            }
+            attendanceListByCourseDto.setAttendanceList(attendanceList);
+            attendanceListByCourseDto.setCourseCode(subject.getCourseCode());
+            attendanceListByCourseDto.setCourseName(subject.getName());
+
+            int numAttendance=0;
+            int numAbsence=0;
+            for(Attendance attendance : attendanceList){
+                if(attendance.isAttendance()){
+                    numAttendance++;
+                }
+                else{
+                    numAbsence++;
+                }
+            }
+
+            attendanceListByCourseDto.setAttendanceNum(numAttendance);
+            attendanceListByCourseDto.setAbsenceNum(numAbsence);
+            list.add(attendanceListByCourseDto);
+        }
+        return list;
     }
 
     private boolean checkWeekDay(Subject.WeekDay subjectDay , DayOfWeek attDay){

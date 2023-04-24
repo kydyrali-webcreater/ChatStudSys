@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.security.core.GrantedAuthority;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -69,6 +70,12 @@ public class JwtAuthenticationController {
                 userDetails.getId(),
                 userDetails.getUsername(),
                 roles));
+    }
+
+    @PostMapping("/logout")
+    public ResponseEntity<?> logoutUser(HttpServletRequest request) {
+        SecurityContextHolder.getContext().setAuthentication(null);
+        return ResponseEntity.ok("Logged out successfully");
     }
 
     private void authenticate(String username, String password) throws Exception {

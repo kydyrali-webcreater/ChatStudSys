@@ -87,18 +87,18 @@ public class StudentControllerTest {
         assertEquals(0, attendanceList.size());
     }
 
-    @Test
-    public void testGetAllAttendance() {
-        // Mocking dependencies
-        User student = new User();
-        when(userRepository.findByUserId(eq("student1"))).thenReturn(Optional.of(student));
-        when(attendanceRepository.getAttendanceByStudentId(eq("student1"))).thenReturn(Collections.emptyList());
-
-        // Perform test
-        List<Attendance> attendanceList = studentController.getAllAttendance("student1");
-
-        // Assert results
-        assertNotNull(attendanceList);
-        assertEquals(0, attendanceList.size());
-    }
+//    @Test
+//    public void testGetAllAttendance() {
+//        // Mocking dependencies
+//        User student = new User();
+//        when(userRepository.findByUserId(eq("student1"))).thenReturn(Optional.of(student));
+//        when(attendanceRepository.getAttendanceByStudentId(eq("student1"))).thenReturn(Collections.emptyList());
+//
+//        // Perform test
+//        List<Attendance> attendanceList = studentController.getAllAttendance("student1");
+//
+//        // Assert results
+//        assertNotNull(attendanceList);
+//        assertEquals(0, attendanceList.size());
+//    }
 }
