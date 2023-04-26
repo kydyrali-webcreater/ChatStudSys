@@ -1,6 +1,7 @@
 package org.example.repository;
 
 import org.example.model.Attendance;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -9,6 +10,7 @@ import org.springframework.stereotype.Repository;
 
 import javax.transaction.Transactional;
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public interface AttendanceRepository extends JpaRepository<Attendance , Long> {
@@ -24,4 +26,7 @@ public interface AttendanceRepository extends JpaRepository<Attendance , Long> {
     @Transactional
     @Query("UPDATE Attendance a SET a.isAttendance = :isAttendance WHERE a.id = :id")
     int updateAttendanceStatus(@Param("id") Long id, @Param("isAttendance") boolean isAttendance);
+
+    @Query("SELECT a from Attendance a WHERE a.studentId = :studentId ORDER BY a.id DESC ")
+    List<Attendance> getLastAttendance(@Param("studentId") String studentId , Pageable pageable);
 }

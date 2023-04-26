@@ -1,7 +1,9 @@
 package org.example.model;
 
+import com.sun.istack.NotNull;
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.lang.NonNull;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -20,6 +22,8 @@ public class Attendance {
     private boolean isAttendance;
 
     private String studentId;
+
+    private Long subjectId;
 
     private String courseCode;
 

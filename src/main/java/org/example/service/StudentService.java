@@ -9,7 +9,7 @@ import java.util.List;
 @Service
 public interface StudentService {
 
-    public Attendance takeAttendance(String studentId , Attendance attendance);
+    Attendance takeAttendance(String studentId , Attendance attendance);
 
     List<AttendanceListByCourseDto> getAllAttendance(String studentId);
 }

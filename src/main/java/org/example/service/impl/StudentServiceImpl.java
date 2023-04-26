@@ -11,6 +11,7 @@ import org.example.repository.SubjectRepository;
 import org.example.repository.UserRepository;
 import org.example.service.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -19,6 +20,8 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class StudentServiceImpl implements StudentService {
@@ -37,14 +40,16 @@ public class StudentServiceImpl implements StudentService {
         User student = userRepository.findByUserId(studentId)
                 .orElseThrow(() -> new BasicException("STUDENT NOT FOUND"));
 
-        Subject subject = subjectRepository.getByCourseCode(attendance.getCourseCode())
-                .orElseThrow(() -> new BasicException("SUBJECT NOT FOUND"));
-
+        List<Subject> subjects = subjectRepository.getByCourseCode(attendance.getCourseCode());
+        if(subjects.isEmpty()){
+            throw new BasicException("NOT FOUND COURSE");
+        }
+        Subject subject = subjects.stream().filter(s -> s.getId() == attendance.getSubjectId()).collect(Collectors.toList()).get(0);
         if(!studentId.equals(attendance.getStudentId())){
             throw new BasicException("ATTENDANCE'S STUDENTID NOT EQUALS TO CURRENT STUDENT");
         }
 
-        if(!Arrays.stream(subjectRepository.getListByCourseCode(attendance.getCourseCode()).split(",")).toList().contains(studentId)){
+        if(!Arrays.stream(subjectRepository.getListByCourseId(attendance.getSubjectId()).split(",")).toList().contains(studentId)){
             throw new BasicException("STUNDENT DOESN'T HAVE THE COURSE");
         }
 
@@ -60,7 +65,24 @@ public class StudentServiceImpl implements StudentService {
             throw new BasicException("ATTENDANCE TIME NOT VALID");
         }
 
+        List<Attendance> lastAttendances = attendanceRepository.getLastAttendance(studentId, PageRequest.of(0, 10));
+        Optional<Attendance> lastAttendance = lastAttendances.isEmpty() ? Optional.empty() : Optional.of(lastAttendances.get(0));
+        if(lastAttendance.isPresent()) {
+            if (checkDay(lastAttendance.get().getTime(), attendance.getTime())) {
+                throw new BasicException("ATTENDANCE ALREADY PASSED");
+            }
+        }
         return attendanceRepository.save(attendance);
+    }
+
+
+    private boolean checkDay(LocalDateTime time , LocalDateTime pass){
+        if(time.getDayOfYear()==pass.getDayOfYear()){
+            if(time.getHour() == pass.getHour()){
+                return true;
+            }
+        }
+        return false;
     }
 
     @Override

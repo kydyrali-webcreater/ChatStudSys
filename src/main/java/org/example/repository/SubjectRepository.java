@@ -18,6 +18,9 @@ public interface SubjectRepository extends JpaRepository<Subject, Long> {
     @Query("SELECT s.studentIds FROM Subject s WHERE s.courseCode = :courseCode")
     String getListByCourseCode(@Param("courseCode") String studentId);
 
+    @Query("SELECT s.studentIds FROM Subject s WHERE s.id = :id")
+    String getListByCourseId(@Param("id") Long id);
+
     @Query("SELECT s FROM Subject s WHERE s.teacherId = :teacherId")
     List<Subject> getListByTeacherId(@Param("teacherId") String teacherId);
 
@@ -28,5 +31,5 @@ public interface SubjectRepository extends JpaRepository<Subject, Long> {
     String getCourseCodeByTeacherId(@Param("teacherId") String teacherId);
 
     @Query("SELECT s FROM Subject  s WHERE s.courseCode = :courseCode")
-    Optional<Subject> getByCourseCode(@Param("courseCode") String courseCode);
+    List<Subject> getByCourseCode(@Param("courseCode") String courseCode);
 }
