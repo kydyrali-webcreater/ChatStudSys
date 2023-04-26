@@ -33,7 +33,7 @@ public class SubjectServiceImpl implements SubjectService{
         List<Subject> subjects = subjectRepository.getListByStudentId(studentId);
 
         for(Subject subject : subjects){
-            User user = userRepository.findByUserId(studentId)
+            User user = userRepository.findByUserId(subject.getTeacherName())
                     .orElseThrow(() -> new BasicException("NOT FOUND TEACHER BY ID:" + studentId));
             subject.setTeacherName(user.getLastname() + " " + user.getFirstname());
         }
