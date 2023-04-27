@@ -36,6 +36,8 @@ public class Attendance {
 
     @Transient
     private String putedByInfo;
+    @Transient
+    private String subjectHour;
 
     @Enumerated(EnumType.STRING)
     private AttendanceType attendanceType;
