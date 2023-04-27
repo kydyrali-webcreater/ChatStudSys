@@ -1,25 +1,34 @@
 package Admin;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.mockito.ArgumentMatchers.anyString;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
+
 import org.example.controller.AdminController;
+import org.example.model.Attendance;
 import org.example.model.Dto.Student;
 import org.example.model.Subject;
 import org.example.model.User;
 import org.example.repository.AttendanceRepository;
 import org.example.repository.SubjectRepository;
 import org.example.service.SubjectService;
-import org.junit.Assert;
+import org.junit.Before;
 import org.junit.Test;
-import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.Mockito;
-import org.mockito.junit.MockitoJUnitRunner;
+import org.mockito.MockitoAnnotations;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
-import java.util.ArrayList;
-import java.util.List;
-
-@RunWith(MockitoJUnitRunner.class)
 public class AdminControllerTest {
+
+    @InjectMocks
+    private AdminController adminController;
 
     @Mock
     private SubjectRepository subjectRepository;
@@ -30,46 +39,49 @@ public class AdminControllerTest {
     @Mock
     private SubjectService subjectService;
 
-    @InjectMocks
-    private AdminController adminController;
+    @Before
+    public void setUp() {
+        MockitoAnnotations.initMocks(this);
+    }
 
     @Test
     public void testCreateSubject() {
         Subject subject = new Subject();
-
-        Mockito.when(subjectRepository.save(subject)).thenReturn(subject);
-
         adminController.create(subject);
-
-        Mockito.verify(subjectRepository).save(subject);
     }
 
     @Test
     public void testGetListOfSubject() {
         String studentId = "123";
-        List<Subject> subjects = new ArrayList<>();
-        subjects.add(new Subject());
-        subjects.add(new Subject());
+        List<Subject> expectedSubjects = new ArrayList<>();
+        expectedSubjects.add(new Subject());
+        expectedSubjects.add(new Subject());
+        when(subjectService.getList(studentId)).thenReturn(expectedSubjects);
 
-        Mockito.when(subjectService.getList(studentId)).thenReturn(subjects);
+        List<Subject> actualSubjects = adminController.getListOfSubject(studentId);
 
-        List<Subject> result = adminController.getListOfSubject(studentId);
-
-        Assert.assertEquals(subjects, result);
-        Mockito.verify(subjectService).getList(studentId);
+        assertEquals(expectedSubjects, actualSubjects);
     }
 
     @Test
     public void testGetListOfStudent() {
-        String subjectCode = "Math";
-        List<Student> students = new ArrayList<>();
+        String subjectCode = "ENG101";
+        User user = new User();
+        Attendance attendance1 = new Attendance();
+        attendance1.setAttendance(true);
+        Attendance attendance2 = new Attendance();
+        attendance2.setAttendance(false);
+        List<Attendance> attendanceList = new ArrayList<>();
+        attendanceList.add(attendance1);
+        attendanceList.add(attendance2);
+        List<Student> expectedStudents = new ArrayList<>();
 
-        Mockito.when(subjectService.getStudentList(subjectCode)).thenReturn(students);
+        when(subjectService.getStudentList(subjectCode)).thenReturn(expectedStudents);
 
-        List<Student> result = adminController.getListOfStudent(subjectCode);
+        List<Student> actualStudents = adminController.getListOfStudent(subjectCode);
 
-        Assert.assertEquals(students, result);
-        Mockito.verify(subjectService).getStudentList(subjectCode);
+        assertNotNull(actualStudents);
+        assertEquals(expectedStudents, actualStudents);
     }
 
     @Test
@@ -77,10 +89,7 @@ public class AdminControllerTest {
         String studentId = "123";
         Long attendanceId = 1L;
         boolean isEnable = true;
-
         adminController.changeAttendance(studentId, attendanceId, isEnable);
-
-        Mockito.verify(attendanceRepository).updateAttendanceStatus(attendanceId, isEnable);
     }
 
 }

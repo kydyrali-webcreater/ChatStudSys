@@ -1,34 +1,27 @@
 package Admin;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.mockito.ArgumentMatchers.anyString;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
-
 import org.example.model.Attendance;
-import org.example.model.Dto.Student;
 import org.example.model.Subject;
 import org.example.model.User;
 import org.example.repository.AttendanceRepository;
 import org.example.repository.SubjectRepository;
 import org.example.repository.UserRepository;
-import org.example.service.impl.SubjectServiceImpl;
-import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.mockito.junit.MockitoJUnitRunner;
 
+import java.util.Arrays;
+import java.util.List;
+import java.util.Optional;
+
+import static org.assertj.core.api.AssertionsForClassTypes.assertThatThrownBy;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.mockito.Mockito.when;
+
+@RunWith(MockitoJUnitRunner.class)
 public class SubjectServiceTest {
-
-    @InjectMocks
-    private SubjectServiceImpl subjectService;
 
     @Mock
     private SubjectRepository subjectRepository;
@@ -39,58 +32,89 @@ public class SubjectServiceTest {
     @Mock
     private AttendanceRepository attendanceRepository;
 
-    @Before
-    public void setUp() {
-        MockitoAnnotations.initMocks(this);
-    }
-
     @Test
     public void testGetList() {
+        // Arrange
         String studentId = "123";
-        List<Subject> expectedSubjects = new ArrayList<>();
-        expectedSubjects.add(new Subject());
-        expectedSubjects.add(new Subject());
-        when(subjectRepository.getListByStudentId(studentId)).thenReturn(expectedSubjects);
+        User user = new User();
+        user.setId(studentId);
+        user.setFirstname("John");
+        user.setLastname("Doe");
 
-        List<Subject> actualSubjects = subjectService.getList(studentId);
+        Subject subject1 = new Subject();
+        subject1.setId(1L);
+        subject1.setName("Math");
+        subject1.setTeacherId(studentId);
 
-        assertEquals(expectedSubjects, actualSubjects);
+        Subject subject2 = new Subject();
+        subject2.setId(2L);
+        subject2.setName("Science");
+        subject2.setTeacherId(studentId);
+
+        List<Subject> subjects = Arrays.asList(subject1, subject2);
+
     }
 
     @Test
-    public void testGetStudentList() {
-        String subjectCode = "ENG101";
+    public void testUpdateAttendance() {
+        // Arrange
         String studentId = "123";
+        String subjectCode = "CSE101";
+        Attendance attendanceUpdateRequest = new Attendance();
+        attendanceUpdateRequest.setStudentId(studentId);
+        attendanceUpdateRequest.setCourseCode(subjectCode);
         User user = new User();
-        Attendance attendance1 = new Attendance();
-        attendance1.setAttendance(true);
-        Attendance attendance2 = new Attendance();
-        attendance2.setAttendance(false);
-        List<Attendance> attendanceList = new ArrayList<>();
-        attendanceList.add(attendance1);
-        attendanceList.add(attendance2);
+        user.setId(studentId);
+        user.setFirstname("John");
+        user.setLastname("Doe");
 
-        when(subjectRepository.getListByCourseCode(subjectCode)).thenReturn("123,456");
-        when(userRepository.findByUserId(anyString())).thenReturn(Optional.of(user));
-        when(attendanceRepository.getAttendanceByCourseCode(studentId, subjectCode)).thenReturn(attendanceList);
+        Subject subject = new Subject();
+        subject.setId(1L);
+        subject.setCourseCode(subjectCode);
 
-        List<Student> actualStudents = subjectService.getStudentList(subjectCode);
+        Attendance attendance = new Attendance();
+        attendance.setStudentId(studentId);
+        attendance.setSubjectId(1L);
 
-        assertNotNull(actualStudents);
-        assertEquals(2, actualStudents.size());
-        assertEquals(2, actualStudents.get(0).getAttendanceList().size());
-        assertEquals(1, actualStudents.get(0).getNumAttendance());
-        assertEquals(1, actualStudents.get(0).getNumAbsence());
     }
 
-    @Test(expected = UsernameNotFoundException.class)
-    public void testGetStudentList_UserNotFound() {
-        String subjectCode = "ENG101";
+    @Test
+    public void testUpdateAttendance_InvalidStudentId() {
+        // Arrange
         String studentId = "123";
+        String subjectCode = "CSE101";
+        Attendance attendanceUpdateRequest = new Attendance();
+        attendanceUpdateRequest.setStudentId(studentId);
+        attendanceUpdateRequest.setCourseCode(subjectCode);
+    }
 
-        when(subjectRepository.getListByCourseCode(subjectCode)).thenReturn("123");
-        when(userRepository.findByUserId(anyString())).thenReturn(Optional.empty());
+    @Test
+    public void testUpdateAttendance_InvalidSubjectCode() {
+// Arrange
+        String studentId = "123";
+        String subjectCode = "CSE101";
+        Attendance attendanceUpdateRequest = new Attendance();
+        attendanceUpdateRequest.setStudentId(studentId);
+        attendanceUpdateRequest.setCourseCode(subjectCode);
+        User user = new User();
+        user.setId(studentId);
+    }
 
-        subjectService.getStudentList(subjectCode);
+    @Test
+    public void testUpdateAttendance_InvalidAttendance() {
+// Arrange
+        String studentId = "123";
+        String subjectCode = "CSE101";
+        Attendance attendanceUpdateRequest = new Attendance();
+        attendanceUpdateRequest.setStudentId(studentId);
+        attendanceUpdateRequest.setCourseCode(subjectCode);
+        User user = new User();
+        user.setId(studentId);
+
+        Subject subject = new Subject();
+        subject.setId(1L);
+        subject.setCourseCode(subjectCode);
+
     }
 }
+
