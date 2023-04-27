@@ -4,11 +4,16 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="b591dc87-2af1-485d-8995-421156d4dc03" name="Changes" comment="init users for testing">
-      <change afterPath="$PROJECT_DIR$/src/test/java/Auth/JwtAuthenticationControllerTest.java" afterDir="false" />
+    <list default="true" id="b591dc87-2af1-485d-8995-421156d4dc03" name="Changes" comment="гщсщш">
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/security/CustomUserDetails.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/security/CustomUserDetails.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/service/impl/SubjectServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/service/impl/AdminServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docker-compose.yml" beforeDir="false" afterPath="$PROJECT_DIR$/docker-compose.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/controller/StudentController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/controller/StudentController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/model/Attendance.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/model/Attendance.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/repository/AttendanceRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/repository/AttendanceRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/service/impl/StudentServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/service/impl/StudentServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/application.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/Student/StudentControllerTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/Student/StudentControllerTest.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -38,6 +43,10 @@
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+    <option name="UPDATE_TYPE" value="REBASE" />
+  </component>
+  <component name="GitRewordedCommitMessages">
+    <option name="onto" value="bd4c8e31d6de10b593ce1eaeda1a2078b95c62c3" />
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
@@ -88,7 +97,7 @@
       <recent name="org.example.mapper" />
     </key>
   </component>
-  <component name="RunManager" selected="JUnit.JwtAuthenticationControllerTest">
+  <component name="RunManager" selected="Spring Boot.AttendanceSystemApplication">
     <configuration name="JwtAuthenticationControllerTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="ChatStudSys" />
       <extension name="coverage">
@@ -120,6 +129,21 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="StudentServiceTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="ChatStudSys" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="Student.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="Student" />
+      <option name="MAIN_CLASS_NAME" value="Student.StudentServiceTest" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="TeacherControllerTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="ChatStudSys" />
       <extension name="coverage">
@@ -130,21 +154,6 @@
       </extension>
       <option name="PACKAGE_NAME" value="Teacher" />
       <option name="MAIN_CLASS_NAME" value="Teacher.TeacherControllerTest" />
-      <option name="TEST_OBJECT" value="class" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="TeacherServiceTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="ChatStudSys" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="Teacher.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="Teacher" />
-      <option name="MAIN_CLASS_NAME" value="Teacher.TeacherServiceTest" />
       <option name="TEST_OBJECT" value="class" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -171,11 +180,11 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Spring Boot.AttendanceSystemApplication" />
+        <item itemvalue="JUnit.StudentServiceTest" />
         <item itemvalue="JUnit.JwtAuthenticationControllerTest" />
         <item itemvalue="JUnit.JwtAuthenticationControllerTest.testRegisterUser" />
         <item itemvalue="JUnit.TeacherControllerTest" />
-        <item itemvalue="JUnit.TeacherServiceTest" />
-        <item itemvalue="Spring Boot.AttendanceSystemApplication" />
       </list>
     </recent_temporary>
   </component>
@@ -201,6 +210,18 @@
       <workItem from="1681456058873" duration="5553000" />
       <workItem from="1681705042449" duration="150000" />
       <workItem from="1681712185119" duration="4583000" />
+      <workItem from="1681883516510" duration="62000" />
+      <workItem from="1681986627724" duration="112000" />
+      <workItem from="1682014300580" duration="1000" />
+      <workItem from="1682014308866" duration="1615000" />
+      <workItem from="1682260293027" duration="1237000" />
+      <workItem from="1682318906005" duration="4247000" />
+      <workItem from="1682441628446" duration="3132000" />
+      <workItem from="1682474629835" duration="3575000" />
+      <workItem from="1682511563454" duration="429000" />
+      <workItem from="1682525068836" duration="678000" />
+      <workItem from="1682567318527" duration="1320000" />
+      <workItem from="1682614324540" duration="2333000" />
     </task>
     <task id="LOCAL-00001" summary="working Auth">
       <created>1679576229374</created>
@@ -265,7 +286,49 @@
       <option name="project" value="LOCAL" />
       <updated>1680959706064</updated>
     </task>
-    <option name="localTasksCounter" value="10" />
+    <task id="LOCAL-00010" summary="add putedByInfo and valid to weekDay in Student Part">
+      <created>1681846167197</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1681846167197</updated>
+    </task>
+    <task id="LOCAL-00011" summary="add teachername field to Subject model">
+      <created>1682014581841</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1682014581841</updated>
+    </task>
+    <task id="LOCAL-00012" summary="рефактор аттенденса">
+      <created>1682323008668</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1682323008668</updated>
+    </task>
+    <task id="LOCAL-00013" summary="рефактор + валидация на повторный атт">
+      <created>1682477983490</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1682477983490</updated>
+    </task>
+    <task id="LOCAL-00014" summary="исправление бага с именами учителей">
+      <created>1682511686052</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1682511686052</updated>
+    </task>
+    <task id="LOCAL-00015" summary="гщсщш">
+      <created>1682525146881</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1682525146881</updated>
+    </task>
+    <option name="localTasksCounter" value="16" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -304,6 +367,12 @@
     <MESSAGE value="add Teacher features |check att + tests" />
     <MESSAGE value="add  Student features" />
     <MESSAGE value="init users for testing" />
-    <option name="LAST_COMMIT_MESSAGE" value="init users for testing" />
+    <MESSAGE value="add putedByInfo and valid to weekDay in Student Part" />
+    <MESSAGE value="add teachername field to Subject model" />
+    <MESSAGE value="рефактор аттенденса" />
+    <MESSAGE value="рефактор + валидация на повторный атт" />
+    <MESSAGE value="исправление бага с именами учителей" />
+    <MESSAGE value="гщсщш" />
+    <option name="LAST_COMMIT_MESSAGE" value="гщсщш" />
   </component>
 </project>

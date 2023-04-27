@@ -12,11 +12,14 @@ import org.example.repository.UserRepository;
 import org.example.service.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.text.SimpleDateFormat;
 import java.time.DayOfWeek;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -96,6 +99,7 @@ public class StudentServiceImpl implements StudentService {
             for(Attendance attendance : attendanceList){
                 User user = userRepository.findByUserId(studentId)
                         .orElseThrow(() -> new BasicException("NOT FOUND USER WHO TAKE ATTENDANCE"));
+                attendance.setSubjectHour(subject.getTime().format(DateTimeFormatter.ofPattern("HH:mm")));
                 attendance.setPutedByInfo(user.getLastname() + " " + user.getFirstname());
             }
             attendanceListByCourseDto.setAttendanceList(attendanceList);
