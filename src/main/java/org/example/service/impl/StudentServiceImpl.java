@@ -20,10 +20,10 @@ import java.text.SimpleDateFormat;
 import java.time.DayOfWeek;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.function.Function;
+import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
 @Service
@@ -91,6 +91,12 @@ public class StudentServiceImpl implements StudentService {
     @Override
     public List<AttendanceListByCourseDto> getAllAttendance(String studentId) {
         List<Subject> subjects = subjectRepository.getListByStudentId(studentId);
+
+        subjects = subjects.stream()
+                .filter(distinctByKey(Subject::getCourseCode))
+                .collect(Collectors.toList());
+
+
         List<AttendanceListByCourseDto> list = new ArrayList<>();
         for(Subject subject : subjects){
             AttendanceListByCourseDto attendanceListByCourseDto = new AttendanceListByCourseDto();
@@ -102,6 +108,7 @@ public class StudentServiceImpl implements StudentService {
                 attendance.setSubjectHour(subject.getTime().format(DateTimeFormatter.ofPattern("HH:mm")));
                 attendance.setPutedByInfo(user.getLastname() + " " + user.getFirstname());
             }
+
             attendanceListByCourseDto.setAttendanceList(attendanceList);
             attendanceListByCourseDto.setCourseCode(subject.getCourseCode());
             attendanceListByCourseDto.setCourseName(subject.getName());
@@ -139,5 +146,10 @@ public class StudentServiceImpl implements StudentService {
             return true;
         }
         return false;
+    }
+
+    public static <T> Predicate<T> distinctByKey(Function<? super T, ?> keyExtractor) {
+        Map<Object, Boolean> seen = new ConcurrentHashMap<>();
+        return t -> seen.putIfAbsent(keyExtractor.apply(t), Boolean.TRUE) == null;
     }
 }
