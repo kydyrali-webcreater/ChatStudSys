@@ -7,6 +7,7 @@ import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.core.Ordered;
 
+
 @SpringBootApplication
 public class AttendanceSystemApplication {
     public static void main(String[] args) {
