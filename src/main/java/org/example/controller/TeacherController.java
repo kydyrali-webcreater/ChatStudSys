@@ -17,6 +17,8 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Set;
 
@@ -59,6 +61,31 @@ public class TeacherController {
         }
 
         return teacherService.getListStudents(studentId , id);
+    }
+
+    @GetMapping("/{teacherId}/students")
+    public List<Student> allStudents( @PathVariable("teacherId") String id){
+        User teacher = userRepository.findByUserId(id)
+                .orElseThrow(() -> new BasicException("TEACHER NOT FOUND"));
+
+        if(!teacher.getUserRole().name().equals("TEACHER")){
+            throw new BasicException("USER ISN'T TEACHER");
+        }
+
+        List<String> studentIds = Arrays.stream(subjectRepository.getListStudentsByTeacherId(id).split(",")).toList();
+        if(studentIds.isEmpty()){
+            throw new BasicException("TEACHER DOESN'T HAVE STUDENTS");
+        }
+
+        List<Student> studentList = new ArrayList<>();
+
+        for(String ids: studentIds){
+            User student = userRepository.findByUserId(ids)
+                    .orElseThrow(() -> new BasicException("STUDENT NOT FOUND"));
+            studentList.add(new Student(student));
+        }
+
+        return studentList;
     }
 
 
