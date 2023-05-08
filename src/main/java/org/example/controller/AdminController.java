@@ -16,6 +16,7 @@ import java.util.List;
 public class AdminController {
 
 
+    private String mal;
     @Autowired
     private SubjectRepository subjectsRepository;
 
