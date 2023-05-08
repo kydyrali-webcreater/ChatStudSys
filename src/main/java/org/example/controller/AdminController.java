@@ -16,8 +16,6 @@ import java.util.List;
 public class AdminController {
 
 
-    private String nmae;
-
     @Autowired
     private SubjectRepository subjectsRepository;
 
