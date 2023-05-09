@@ -15,6 +15,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.DayOfWeek;
 import java.time.LocalDateTime;
 import java.util.*;
 import java.util.stream.Collectors;
@@ -55,9 +56,33 @@ public class TeacherServiceImpl implements TeacherService {
     @Override
     @Transactional
     public List<Attendance> setAttendance(User teacher, Set<StudentAttendance> studentAttendances){
+        LocalDateTime timeNow = LocalDateTime.now();
+        List<Subject> subjectList = subjectRepository.getListByTeacherId(teacher.getId());
+
+        Subject subjectNow=null;
+        boolean IsNotFind = true;
+
+        for(Subject subject : subjectList){
+            Subject.WeekDay expectedDayOfWeek = subject.getWeekDay();
+            DayOfWeek actualDayOfWeek = timeNow.getDayOfWeek();
+            if(checkWeekDay(expectedDayOfWeek , actualDayOfWeek) &&
+                    subject.getTime().getHour()==timeNow.getHour() &&
+                    subject.getTime().getMinute()<=timeNow.getMinute() &&
+                    (subject.getTime().getMinute()+50)>=timeNow.getMinute()){
+                subjectNow=subject;
+                IsNotFind=false;
+                break;
+            }
+        }
+
+        if(IsNotFind) {
+            throw new BasicException("CAN'T FIND ANY SUBJECT IN THAT TIME OF PERIOD");
+        }
+
         List<Attendance> attendanceList = new ArrayList<>();
         for(StudentAttendance studentAttendance: studentAttendances) {
-            if (!Arrays.stream(subjectRepository.getListStudentsByTeacherId(teacher.getId()).split(",")).toList().contains(studentAttendance.getStudentId())) {
+
+            if (!subjectNow.getStudentIds().contains(studentAttendance.getStudentId())) {
                 throw new BasicException("USER IS NOT TEACHER FOR THE STUDENT " + studentAttendance.getStudentId());
             }
 
@@ -66,7 +91,7 @@ public class TeacherServiceImpl implements TeacherService {
             studentAtt.setStudentId(studentAttendance.getStudentId());
             studentAtt.setAttendanceType(Attendance.AttendanceType.PORTAL);
             studentAtt.setTime(LocalDateTime.now());
-            studentAtt.setCourseCode(subjectRepository.getCourseCodeByTeacherId(teacher.getId()));
+            studentAtt.setCourseCode(subjectNow.getCourseCode());
             studentAtt.setPutedById(teacher.getId());
             studentAtt.setPutedByInfo(teacher.getLastname() + " " + teacher.getFirstname());
             studentAtt.setPutedByRole(Attendance.PutedByRole.TEACHER);
@@ -74,5 +99,12 @@ public class TeacherServiceImpl implements TeacherService {
             attendanceList.add(studentAtt);
         }
         return attendanceList;
+    }
+
+    private boolean checkWeekDay(Subject.WeekDay subjectDay , DayOfWeek attDay){
+        if(attDay.name().equals(subjectDay.name())){
+            return true;
+        }
+        return false;
     }
 }
