@@ -44,7 +44,8 @@ public class SubjectServiceImpl implements SubjectService{
 
     @Override
     public List<Student> getStudentList(String subjectCode) {
-        String studentIds = subjectRepository.getListByCourseCode(subjectCode);
+        List<String> strings = subjectRepository.getListByCourseCode(subjectCode);
+        String studentIds = strings.get(0);
         String[] st = studentIds.split(",");
         List<Student> students = new ArrayList<>();
         for(String studentId : st){

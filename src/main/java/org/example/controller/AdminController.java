@@ -15,8 +15,6 @@ import java.util.List;
 @RequestMapping("api/admin")
 public class AdminController {
 
-
-    private String mal;
     @Autowired
     private SubjectRepository subjectsRepository;
 
