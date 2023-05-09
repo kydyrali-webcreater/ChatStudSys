@@ -22,10 +22,10 @@ public interface AttendanceRepository extends JpaRepository<Attendance , Long> {
     @Query("SELECT a from Attendance a WHERE a.studentId = :studentId ")
     List<Attendance> getAttendanceByStudentId(@Param("studentId") String studentId);
 
-    @Modifying
-    @Transactional
-    @Query("UPDATE Attendance a SET a.isAttendance = :isAttendance WHERE a.id = :id")
-    int updateAttendanceStatus(@Param("id") Long id, @Param("isAttendance") boolean isAttendance);
+//    @Modifying
+//    @Transactional
+//    @Query("UPDATE Attendance a SET a.isAttendance = :isAttendance , a.AttendanceType='PORTAL' WHERE a.id = :id")
+//    int updateAttendanceStatus(@Param("id") Long id, @Param("isAttendance") boolean isAttendance);
 
     @Query("SELECT a from Attendance a WHERE a.studentId = :studentId ORDER BY a.id DESC ")
     List<Attendance> getLastAttendance(@Param("studentId") String studentId , Pageable pageable);

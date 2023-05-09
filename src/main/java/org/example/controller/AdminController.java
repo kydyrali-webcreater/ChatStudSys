@@ -1,5 +1,6 @@
 package org.example.controller;
 
+import org.example.model.Attendance;
 import org.example.model.Dto.Student;
 import org.example.model.Subject;
 import org.example.model.User;
@@ -43,7 +44,13 @@ public class AdminController {
     public void changeAttendance(@PathVariable("studentId") String studentId,
                                     @PathVariable("attendanceId") Long attendaceId,
                                     @PathVariable("isEnable") boolean isEnable){
-        attendanceRepository.updateAttendanceStatus(attendaceId , isEnable);
+        Attendance attendance = attendanceRepository.getById(attendaceId);
+        attendanceRepository.delete(attendance);
+        attendance.setAttendance(isEnable);
+        attendance.setPutedByInfo("ADMIN");
+        attendance.setStudentId(studentId);
+        attendance.setPutedByRole(Attendance.PutedByRole.ADMIN);
+        attendanceRepository.save(attendance);
     }
 
 }
