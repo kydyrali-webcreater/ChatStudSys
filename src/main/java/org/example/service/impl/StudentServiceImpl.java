@@ -105,7 +105,7 @@ public class StudentServiceImpl implements StudentService {
             for(Attendance attendance : attendanceList){
                 User user = userRepository.findByUserId(studentId)
                         .orElseThrow(() -> new BasicException("NOT FOUND USER WHO TAKE ATTENDANCE"));
-                attendance.setSubjectHour(subject.getTime().format(DateTimeFormatter.ofPattern("HH:mm")));
+                attendance.setSubjectHour(attendance.getTime().format(DateTimeFormatter.ofPattern("HH:mm")));
                 attendance.setPutedByInfo(user.getLastname() + " " + user.getFirstname());
             }
 
