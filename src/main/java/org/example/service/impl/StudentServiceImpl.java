@@ -96,7 +96,6 @@ public class StudentServiceImpl implements StudentService {
                 .filter(distinctByKey(Subject::getCourseCode))
                 .collect(Collectors.toList());
 
-
         List<AttendanceListByCourseDto> list = new ArrayList<>();
         for(Subject subject : subjects){
             AttendanceListByCourseDto attendanceListByCourseDto = new AttendanceListByCourseDto();
