@@ -11,12 +11,12 @@ import org.example.repository.SubjectRepository;
 import org.example.repository.UserRepository;
 import org.example.service.TeacherService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.DayOfWeek;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -55,8 +55,9 @@ public class TeacherServiceImpl implements TeacherService {
 
     @Override
     @Transactional
-    public List<Attendance> setAttendance(User teacher, Set<StudentAttendance> studentAttendances){
-        LocalDateTime timeNow = LocalDateTime.now();
+    public List<Attendance> setAttendance(User teacher, Set<StudentAttendance> studentAttendances, String StringtimeNow){
+        DateTimeFormatter formatter = DateTimeFormatter.ISO_LOCAL_DATE_TIME;
+        LocalDateTime timeNow = LocalDateTime.parse(StringtimeNow, formatter);
         List<Subject> subjectList = subjectRepository.getListByTeacherId(teacher.getId());
 
 

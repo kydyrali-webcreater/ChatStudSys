@@ -13,5 +13,5 @@ public interface TeacherService {
     List<Student> getListStudents(String studentId, String teacherId);
 
     @Transactional
-    List<Attendance> setAttendance(User teacher, Set<StudentAttendance> studentAttendances);
+    List<Attendance> setAttendance(User teacher, Set<StudentAttendance> studentAttendances, String StringtimeNow);
 }

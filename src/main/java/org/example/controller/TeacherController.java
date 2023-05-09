@@ -91,7 +91,8 @@ public class TeacherController {
 
     @PutMapping("{teacherId}/students/attendance/take")
     public List<Attendance> takeAttendances(@PathVariable("teacherId") String id,
-                                      @RequestBody Set<StudentAttendance> studentAttendances){
+                                      @RequestBody Set<StudentAttendance> studentAttendances ,
+                                       @RequestParam("time") String StringtimeNow){
         User teacher = userRepository.findByUserId(id)
                 .orElseThrow(() -> new BasicException("USER NOT FOUND"));
 
@@ -99,6 +100,6 @@ public class TeacherController {
             throw new BasicException("USER ISN'T TEACHER");
         }
 
-        return teacherService.setAttendance(teacher, studentAttendances);
+        return teacherService.setAttendance(teacher, studentAttendances , StringtimeNow);
     }
 }
