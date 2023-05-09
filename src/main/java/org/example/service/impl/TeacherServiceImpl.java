@@ -4,6 +4,7 @@ import org.example.Exceptions.models.BasicException;
 import org.example.model.Attendance;
 import org.example.model.Dto.Student;
 import org.example.model.Dto.StudentAttendance;
+import org.example.model.Subject;
 import org.example.model.User;
 import org.example.repository.AttendanceRepository;
 import org.example.repository.SubjectRepository;
@@ -16,6 +17,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.util.*;
+import java.util.stream.Collectors;
 
 @Service
 public class TeacherServiceImpl implements TeacherService {
@@ -31,8 +33,12 @@ public class TeacherServiceImpl implements TeacherService {
 
     @Override
     public List<Student> getListStudents(String studentId, String teacherId){
-        List<String> studentIds = Arrays.stream(subjectRepository.getListStudentsByTeacherId(teacherId).split(","))
-        .filter(s -> s.startsWith(studentId)).toList();
+        List<Subject> subjectList =  subjectRepository.getListByTeacherId(teacherId);
+        Set<String> studentIds = new HashSet<>();
+        for(Subject subject : subjectList) {
+            studentIds.addAll(subject.getStudentIds().stream().filter(s -> s.startsWith(studentId)).collect(Collectors.toSet()));
+        }
+
         if(studentIds.isEmpty()){
             throw new BasicException("TEACHER DOESN'T HAVE STUDENTS");
         }
