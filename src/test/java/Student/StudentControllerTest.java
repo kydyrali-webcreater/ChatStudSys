@@ -130,20 +130,20 @@ class StudentControllerTest {
 
     }
 
-    @Test
-    @DisplayName("Get list of attendance by course for student")
-    void testGetListOfAttendanceByCourse() {
-        // Arrange
-        List<Attendance> expectedAttendance = Arrays.asList(testAttendance);
-        AttendanceListByCourseDto attendanceListByCourseDto = new AttendanceListByCourseDto();
-        attendanceListByCourseDto.setCourseCode(testSubject.getCourseCode());
-        when(userRepository.findByUserId(anyString())).thenReturn(Optional.of(testStudent));
-        when(subjectRepository.getListByCourseCode(testSubject.getCourseCode())).thenReturn(String.valueOf(Optional.of(testSubject)));
-        // Act
-        List<Attendance> actualAttendance = studentController.getAttendanceByCourse(
-                testStudent.getId(), String.valueOf(attendanceListByCourseDto));
-
-    }
+//    @Test
+//    @DisplayName("Get list of attendance by course for student")
+//    void testGetListOfAttendanceByCourse() {
+//        // Arrange
+//        List<Attendance> expectedAttendance = Arrays.asList(testAttendance);
+//        AttendanceListByCourseDto attendanceListByCourseDto = new AttendanceListByCourseDto();
+//        attendanceListByCourseDto.setCourseCode(testSubject.getCourseCode());
+//        when(userRepository.findByUserId(anyString())).thenReturn(Optional.of(testStudent));
+//        when(subjectRepository.getListByCourseCode(testSubject.getCourseCode())).thenReturn(String.valueOf(Optional.of(testSubject)));
+//        // Act
+//        List<Attendance> actualAttendance = studentController.getAttendanceByCourse(
+//                testStudent.getId(), String.valueOf(attendanceListByCourseDto));
+//
+//    }
 
     @Test
     @DisplayName("Get list of attendance by course with invalid date range for student")

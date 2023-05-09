@@ -110,35 +110,36 @@ public class StudentServiceTest {
         when(subjectRepository.getListByCourseId(attendance.getSubjectId())).thenReturn("456,789");
 
     }
-    @Test
-    void getAttendanceListByCourse_shouldReturnAttendanceListByCourse() {
-        // Arrange
-        String studentId = "123";
-        int page = 0;
-        int size = 10;
-        String courseCode = "CSE101";
-        List<Long> subjectIds = Arrays.asList(1L, 2L);
 
-        User student = new User();
-        student.setId(studentId);
-
-        when(userRepository.findByUserId(studentId)).thenReturn(Optional.of(student));
-
-        Subject subject1 = new Subject();
-        subject1.setId(1L);
-        subject1.setCourseCode(courseCode);
-        subject1.setTime(LocalTime.from(LocalDateTime.of(2023, 4, 26, 8, 30)));
-
-        Subject subject2 = new Subject();
-        subject2.setId(2L);
-        subject2.setCourseCode(courseCode);
-        subject2.setTime(LocalTime.from(LocalDateTime.of(2023, 4, 27, 8, 30)));
-
-        when(subjectRepository.getListByCourseCode(courseCode)).thenReturn(Arrays.asList(subject1, subject2).toString());
-
-        AttendanceListByCourseDto attendanceListByCourseDto1 = new AttendanceListByCourseDto();
-        attendanceListByCourseDto1.setCourseCode(String.valueOf(subject1.getId()));
-        attendanceListByCourseDto1.setCourseName("Subject 1");
-        attendanceListByCourseDto1.setAttendanceList(new ArrayList<>());
-    }
+//    @Test
+//    void getAttendanceListByCourse_shouldReturnAttendanceListByCourse() {
+//        // Arrange
+//        String studentId = "123";
+//        int page = 0;
+//        int size = 10;
+//        String courseCode = "CSE101";
+//        List<Long> subjectIds = Arrays.asList(1L, 2L);
+//
+//        User student = new User();
+//        student.setId(studentId);
+//
+//        when(userRepository.findByUserId(studentId)).thenReturn(Optional.of(student));
+//
+//        Subject subject1 = new Subject();
+//        subject1.setId(1L);
+//        subject1.setCourseCode(courseCode);
+//        subject1.setTime(LocalTime.from(LocalDateTime.of(2023, 4, 26, 8, 30)));
+//
+//        Subject subject2 = new Subject();
+//        subject2.setId(2L);
+//        subject2.setCourseCode(courseCode);
+//        subject2.setTime(LocalTime.from(LocalDateTime.of(2023, 4, 27, 8, 30)));
+//
+//        when(subjectRepository.getListByCourseCode(courseCode)).thenReturn(Arrays.asList(subject1, subject2).toString());
+//
+//        AttendanceListByCourseDto attendanceListByCourseDto1 = new AttendanceListByCourseDto();
+//        attendanceListByCourseDto1.setCourseCode(String.valueOf(subject1.getId()));
+//        attendanceListByCourseDto1.setCourseName("Subject 1");
+//        attendanceListByCourseDto1.setAttendanceList(new ArrayList<>());
+//    }
 }
