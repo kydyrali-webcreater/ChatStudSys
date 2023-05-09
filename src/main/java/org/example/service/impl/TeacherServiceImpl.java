@@ -66,9 +66,7 @@ public class TeacherServiceImpl implements TeacherService {
             Subject.WeekDay expectedDayOfWeek = subject.getWeekDay();
             DayOfWeek actualDayOfWeek = timeNow.getDayOfWeek();
             if(checkWeekDay(expectedDayOfWeek , actualDayOfWeek) &&
-                    subject.getTime().getHour()==timeNow.getHour() &&
-                    subject.getTime().getMinute()<=timeNow.getMinute() &&
-                    (subject.getTime().getMinute()+50)>=timeNow.getMinute()){
+                    subject.getTime().getHour()==timeNow.getHour()){
                 subjectNow=subject;
                 IsNotFind=false;
                 break;
