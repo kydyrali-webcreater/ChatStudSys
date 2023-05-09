@@ -45,27 +45,27 @@ public class SubjectServiceImpl implements SubjectService{
     @Override
     public List<Student> getStudentList(String subjectCode) {
         List<String> strings = subjectRepository.getListByCourseCode(subjectCode);
-        String studentIds = strings.get(0);
-        String[] st = studentIds.split(",");
         List<Student> students = new ArrayList<>();
-        for(String studentId : st){
-            User user = userRepository.findByUserId(studentId)
-                    .orElseThrow(() -> new UsernameNotFoundException("User not found: " + studentId));
-            Student student = new Student(user);
-            student.setAttendanceList(attendanceRepository.getAttendanceByCourseCode(studentId , subjectCode));
-            int numAttendance=0;
-            int numAbsence=0;
-            for(Attendance attendance : student.getAttendanceList()){
-                if(attendance.isAttendance()){
-                    numAttendance++;
+        for(String studentIds : strings) {
+            String[] st = studentIds.split(",");
+            for (String studentId : st) {
+                User user = userRepository.findByUserId(studentId)
+                        .orElseThrow(() -> new UsernameNotFoundException("User not found: " + studentId));
+                Student student = new Student(user);
+                student.setAttendanceList(attendanceRepository.getAttendanceByCourseCode(studentId, subjectCode));
+                int numAttendance = 0;
+                int numAbsence = 0;
+                for (Attendance attendance : student.getAttendanceList()) {
+                    if (attendance.isAttendance()) {
+                        numAttendance++;
+                    } else {
+                        numAbsence++;
+                    }
                 }
-                else{
-                    numAbsence++;
-                }
+                student.setNumAbsence(numAbsence);
+                student.setNumAttendance(numAttendance);
+                students.add(student);
             }
-            student.setNumAbsence(numAbsence);
-            student.setNumAttendance(numAttendance);
-            students.add(student);
         }
         return students;
     }
