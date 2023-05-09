@@ -50,6 +50,7 @@ public class AdminController {
         attendance.setPutedByInfo("ADMIN");
         attendance.setStudentId(studentId);
         attendance.setPutedByRole(Attendance.PutedByRole.ADMIN);
+        attendance.setPutedByInfo("");
         attendanceRepository.save(attendance);
     }
 
