@@ -11,6 +11,7 @@ import org.example.service.StudentService;
 import org.hibernate.annotations.Parent;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.DayOfWeek;
@@ -40,6 +41,7 @@ public class TakeAttendance {
 
 
     @PostMapping("/attendance/take")
+    @Transactional
     public Attendance takeAttendance(@RequestParam("studentId") String studentId,
                                         @RequestParam("time") String StringtimeNow){
         DateTimeFormatter formatter = DateTimeFormatter.ISO_LOCAL_DATE_TIME;
