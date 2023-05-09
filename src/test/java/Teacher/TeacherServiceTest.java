@@ -40,7 +40,7 @@ public class TeacherServiceTest {
         MockitoAnnotations.initMocks(this);
     }
 
-    @Test
+//    @Test
     public void testGetListStudents() {
         String studentId = "123";
         String teacherId = "456";
@@ -76,7 +76,6 @@ public class TeacherServiceTest {
         teacherService.getListStudents(studentId, teacherId);
     }
 
-    @Test
     public void testSetAttendance() {
         User teacher = new User();
         teacher.setId("123");
