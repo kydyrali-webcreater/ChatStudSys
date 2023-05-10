@@ -51,6 +51,7 @@ public class AdminController {
         attendance.setStudentId(studentId);
         attendance.setPutedByRole(Attendance.PutedByRole.ADMIN);
         attendance.setPutedByInfo("");
+        attendance.setAttendanceType(Attendance.AttendanceType.PORTAL);
         attendanceRepository.save(attendance);
     }
 
