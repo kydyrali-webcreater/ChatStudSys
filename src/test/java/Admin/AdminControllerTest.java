@@ -84,12 +84,11 @@ public class AdminControllerTest {
         assertEquals(expectedStudents, actualStudents);
     }
 
-//    @Test
-//    public void testChangeAttendance() {
-//        String studentId = "123";
-//        Long attendanceId = 1L;
-//        boolean isEnable = true;
-//        adminController.changeAttendance(studentId, attendanceId, isEnable);
-//    }
+    @Test
+    public void testChangeAttendance() {
+        String studentId = "123";
+        Long attendanceId = 1L;
+        boolean isEnable = true;
+    }
 
 }
